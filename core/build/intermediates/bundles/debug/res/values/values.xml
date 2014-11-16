@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="lobato_font"><attr format="string" name="primary_font"/><attr format="string" name="second_font"/><attr format="string" name="terciary_font"/></declare-styleable>
+    <!-- From: file:/home/pedro/Bibliotecas/Lobato/core/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="twowayview_item_click_support" type="id"/>
+    <item name="twowayview_item_selection_support" type="id"/>
+</resources>

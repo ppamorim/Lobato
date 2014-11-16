@@ -1,0 +1,9 @@
+int attr primary_font 0x7f010000
+int attr second_font 0x7f010001
+int attr terciary_font 0x7f010002
+int id twowayview_item_click_support 0x7f020000
+int id twowayview_item_selection_support 0x7f020001
+int[] styleable lobato_font { 0x7f010000, 0x7f010001, 0x7f010002 }
+int styleable lobato_font_primary_font 0
+int styleable lobato_font_second_font 1
+int styleable lobato_font_terciary_font 2
