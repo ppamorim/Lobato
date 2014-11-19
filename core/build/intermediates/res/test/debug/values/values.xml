@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/pedro/Bibliotecas/Lobato/core/build/intermediates/bundles/debug/res/values/values.xml -->
+    <eat-comment/>
+    <color name="lobato_disabled_view">#EAEAEA</color>
+    <color name="lobato_reset_view">#FFFFFF</color>
+    <declare-styleable name="lobato_font"><attr format="string" name="lobato_primary_font"/><attr format="string" name="lobato_second_font"/><attr format="string" name="lobato_terciary_font"/></declare-styleable>
+    <item name="twowayview_item_click_support" type="id"/>
+    <item name="twowayview_item_selection_support" type="id"/>
+</resources>
