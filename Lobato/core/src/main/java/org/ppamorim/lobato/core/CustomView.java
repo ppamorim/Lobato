@@ -31,8 +31,8 @@ public class CustomView extends RelativeLayout {
     public final static String ANDROID_XML = "http://schemas.android.com/apk/res/android";
 
     public int backgroundColor = Color.TRANSPARENT;
-    public int accentColor = Color.parseColor("#3F51B5");
-    public int strokeColor = Color.parseColor("#000000");
+    public int accentColor = Color.parseColor("#009688");
+    public int strokeColor = Color.parseColor("#6D6D6D");
 
     public final int disabledBackgroundColor = getResources().getColor(R.color.lobato_disabled_view);
     public int beforeBackground = getResources().getColor(R.color.lobato_reset_view);

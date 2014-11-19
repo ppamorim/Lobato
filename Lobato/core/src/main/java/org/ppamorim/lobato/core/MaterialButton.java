@@ -42,6 +42,11 @@ public abstract class MaterialButton extends CustomView {
     public float x = -1, y = -1;
     public float radius = -1;
 
+    public int mBackgroundColor;
+    public int mRippleColor;
+    public int mRippleSpeed;
+    public int mRippleSize;
+
     public int backgroundColor = Color.parseColor("#1E88E5");
 
     public OnClickListener onClickListener;
@@ -155,8 +160,9 @@ public abstract class MaterialButton extends CustomView {
     // Set color of background
     public void setBackgroundColor(int color) {
         this.backgroundColor = color;
-        if (isEnabled())
+        if (isEnabled()) {
             beforeBackground = backgroundColor;
+        }
         try {
             LayerDrawable layer = (LayerDrawable) getBackground();
             GradientDrawable shape = (GradientDrawable) layer

@@ -10,6 +10,13 @@
         <attr name="background_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="lobato_button_flat">
+        <attr name="background_color" format="color"/>
+        <attr name="ripple_color" format="color"/>
+        <attr name="ripple_speed" format="integer"/>
+        <attr name="ripple_size" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="lobato_CustomAttributes">
         <!-- indicate if the slider must show number indicator -->
         <attr name="lobato_showNumberIndicator" format="boolean" />

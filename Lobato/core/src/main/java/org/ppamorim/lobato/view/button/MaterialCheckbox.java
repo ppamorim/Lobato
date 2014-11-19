@@ -116,8 +116,9 @@ public class MaterialCheckbox extends CustomView {
 
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                makePressColor();
-
+                changeBackgroundColor((check) ? makePressColor() : Color
+                        .parseColor("#446D6D6D"))
+                ;
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
                 changeBackgroundColor(getResources().getColor(

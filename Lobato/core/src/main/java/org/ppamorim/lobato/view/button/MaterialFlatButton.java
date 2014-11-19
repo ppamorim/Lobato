@@ -17,6 +17,7 @@
 package org.ppamorim.lobato.view.button;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -30,21 +31,23 @@ import org.ppamorim.lobato.utils.Utils;
 
 public class MaterialFlatButton extends MaterialButton {
 
+
+
     private TextView mTextView;
 
+    private Context mContext;
+
     public MaterialFlatButton(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public MaterialFlatButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        if(mTextView != null) {
-            setCustomFont(context, mTextView, attrs);
-        }
+        this(context, attrs, 0);
     }
 
     public MaterialFlatButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mContext = context;
         if(mTextView != null) {
             setCustomFont(context, mTextView, attrs);
         }
@@ -67,7 +70,13 @@ public class MaterialFlatButton extends MaterialButton {
 
     @Override
     protected void setAttributes(AttributeSet attrs) {
-// Set text button
+
+        TypedArray style = mContext.obtainStyledAttributes(attrs, R.styleable.lobato_button_flat);
+        mBackgroundColor = style.getColor(R.styleable.lobato_button_flat_background_color, backgroundColor);
+        mRippleColor = style.getColor(R.styleable.lobato_button_flat_ripple_color, accentColor);
+        mRippleSpeed = style.getInteger(R.styleable.lobato_button_flat_ripple_speed, (int)rippleSpeed);
+        mRippleSize = style.getInteger(R.styleable.lobato_button_flat_ripple_size, rippleSize);
+
         String text = null;
         int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
         if(textResource != -1){
