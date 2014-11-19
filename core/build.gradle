@@ -14,7 +14,7 @@ android {
     resourcePrefix 'lobato_'
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 13
         targetSdkVersion 21
     }
 }
