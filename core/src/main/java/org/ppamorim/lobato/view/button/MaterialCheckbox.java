@@ -183,7 +183,7 @@ public class MaterialCheckbox extends CustomView {
     // Indicate step in check animation
     int step = 0;
 
-    
+
     // View that contains checkbox
     class Check extends View {
         Bitmap sprite;
