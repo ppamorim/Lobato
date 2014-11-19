@@ -36,15 +36,15 @@ public abstract class MaterialButton extends CustomView {
     public int minHeight;
     public int background;
     public float rippleSpeed = 10f;
-    public int rippleSize = 3;
-
-    public OnClickListener onClickListener;
-    public int backgroundColor = Color.parseColor("#1E88E5");
 
     // ### RIPPLE EFFECT ###
+    public int rippleSize = 3;
     public float x = -1, y = -1;
     public float radius = -1;
 
+    public int backgroundColor = Color.parseColor("#1E88E5");
+
+    public OnClickListener onClickListener;
     public MaterialButton(Context context) {
         super(context);
     }
@@ -61,10 +61,10 @@ public abstract class MaterialButton extends CustomView {
     }
 
     protected void setDefaultProperties() {
-// Min size
+
         setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
         setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
-// Background shape
+
         setBackgroundResource(background);
         setBackgroundColor(backgroundColor);
     }
@@ -160,7 +160,7 @@ public abstract class MaterialButton extends CustomView {
         try {
             LayerDrawable layer = (LayerDrawable) getBackground();
             GradientDrawable shape = (GradientDrawable) layer
-                    .findDrawableByLayerId(R.id.shape_bacground);
+                    .findDrawableByLayerId(R.id.shape_background);
             shape.setColor(backgroundColor);
         } catch (Exception ex) {
 // Without bacground

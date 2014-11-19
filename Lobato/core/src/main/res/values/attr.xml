@@ -4,6 +4,12 @@
         <attr name="font" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="lobato_checkbox">
+        <attr name="accent_color" format="color"/>
+        <attr name="stroke_color" format="color"/>
+        <attr name="background_color" format="color"/>
+    </declare-styleable>
+
     <declare-styleable name="lobato_CustomAttributes">
         <!-- indicate if the slider must show number indicator -->
         <attr name="lobato_showNumberIndicator" format="boolean" />

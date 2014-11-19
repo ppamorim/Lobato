@@ -18,13 +18,21 @@ package org.ppamorim.lobato.core;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.ppamorim.lobato.utils.Utils;
 
 public class CustomView extends RelativeLayout {
 
     public final static String MATERIAL_DESIGN_XML = "http://schemas.android.com/apk/res-auto";
     public final static String ANDROID_XML = "http://schemas.android.com/apk/res/android";
+
+    public int backgroundColor = Color.TRANSPARENT;
+    public int accentColor = Color.parseColor("#3F51B5");
+    public int strokeColor = Color.parseColor("#000000");
 
     public final int disabledBackgroundColor = getResources().getColor(R.color.lobato_disabled_view);
     public int beforeBackground = getResources().getColor(R.color.lobato_reset_view);
@@ -48,13 +56,12 @@ public class CustomView extends RelativeLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setCustomFont(Context context, AttributeSet attrs) {
-//        Utils.applyFont(context, this, attrs);
+    public void setCustomFont(Context context, TextView textView, AttributeSet attrs) {
+        Utils.applyFont(context, textView, attrs);
     }
 
-    public boolean setCustomFont(Context context, String font) {
-//        return Utils.applyFont(context, this, font);
-        return false;
+    public boolean setCustomFont(Context context, TextView textView, String font) {
+        return Utils.applyFont(context, textView, font);
     }
 
     @Override

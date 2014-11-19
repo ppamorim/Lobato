@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,12 +38,16 @@ public class MaterialFlatButton extends MaterialButton {
 
     public MaterialFlatButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setCustomFont(context, attrs);
+        if(mTextView != null) {
+            setCustomFont(context, mTextView, attrs);
+        }
     }
 
     public MaterialFlatButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setCustomFont(context, attrs);
+        if(mTextView != null) {
+            setCustomFont(context, mTextView, attrs);
+        }
     }
 
     @Override
@@ -76,7 +79,6 @@ public class MaterialFlatButton extends MaterialButton {
             mTextView = new TextView(getContext());
             mTextView.setText(text.toUpperCase());
             mTextView.setTextColor(backgroundColor);
-            mTextView.setTypeface(null, Typeface.BOLD);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             mTextView.setLayoutParams(params);

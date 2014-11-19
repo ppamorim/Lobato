@@ -50,12 +50,10 @@ public class MaterialRadioButton extends CustomView {
 
     public MaterialRadioButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setCustomFont(context, attrs);
     }
 
     public MaterialRadioButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setCustomFont(context, attrs);
     }
 
     // Set atributtes of XML to View
@@ -149,7 +147,7 @@ public class MaterialRadioButton extends CustomView {
     private void changeBackgroundColor(int color) {
         LayerDrawable layer = (LayerDrawable) getBackground();
         GradientDrawable shape = (GradientDrawable) layer
-                .findDrawableByLayerId(R.id.shape_bacground);
+                .findDrawableByLayerId(R.id.shape_background);
         shape.setColor(color);
     }
 
@@ -213,7 +211,7 @@ public class MaterialRadioButton extends CustomView {
                 setBackgroundResource(R.drawable.background_checkbox_check);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
-                        .findDrawableByLayerId(R.id.shape_bacground);
+                        .findDrawableByLayerId(R.id.shape_background);
                 shape.setColor(backgroundColor);
             } else {
                 setBackgroundResource(R.drawable.background_checkbox_uncheck);
