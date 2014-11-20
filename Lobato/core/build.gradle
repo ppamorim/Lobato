@@ -5,7 +5,7 @@ repositories {
 }
 
 dependencies {
-
+    compile 'com.nineoldandroids:library:2.4.0'
 }
 
 android {

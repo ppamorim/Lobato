@@ -24,7 +24,9 @@
     <org.ppamorim.lobato.view.button.MaterialFlatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#597AAA"
         materialdesign:font="squaredance10"
+        materialdesign:text_color="#FF00"
         android:text="bla"/>
 
 

@@ -43,11 +43,17 @@ public abstract class MaterialButton extends CustomView {
     public float radius = -1;
 
     public int mBackgroundColor;
+    public int mTextColor;
     public int mRippleColor;
     public int mRippleSpeed;
     public int mRippleSize;
+    public boolean mIsUppercase;
 
-    public int backgroundColor = Color.parseColor("#1E88E5");
+    public int flatBackgroundColor = Color.parseColor("#EEEEEE");
+    public int flatTextColor = Color.parseColor("#1E88E5");
+
+    public int raisedBackgroundColor = Color.parseColor("#2196F3");
+    public int raisedTextColor = Color.parseColor("#FFFFFF");
 
     public OnClickListener onClickListener;
     public MaterialButton(Context context) {
@@ -58,7 +64,7 @@ public abstract class MaterialButton extends CustomView {
         super(context, attrs);
         setDefaultProperties();
         setAttributes(attrs);
-        beforeBackground = backgroundColor;
+        beforeBackground = flatBackgroundColor;
     }
 
     public MaterialButton(Context context, AttributeSet attrs, int defStyle) {
@@ -71,11 +77,12 @@ public abstract class MaterialButton extends CustomView {
         setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
 
         setBackgroundResource(background);
-        setBackgroundColor(backgroundColor);
+        setBackgroundColor(flatBackgroundColor);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         if (isEnabled()) {
             isLastTouch = true;
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -105,6 +112,7 @@ public abstract class MaterialButton extends CustomView {
         }
         return true;
     }
+
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction,
                                   Rect previouslyFocusedRect) {
@@ -113,11 +121,13 @@ public abstract class MaterialButton extends CustomView {
             y = -1;
         }
     }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 // super.onInterceptTouchEvent(ev);
         return true;
     }
+
     public Bitmap makeCircle() {
         Bitmap output = Bitmap.createBitmap(
                 getWidth() - Utils.dpToPx(6, getResources()), getHeight()
@@ -145,9 +155,9 @@ public abstract class MaterialButton extends CustomView {
      * @return makePressColor();
      */
     protected int makePressColor() {
-        int r = (this.backgroundColor >> 16) & 0xFF;
-        int g = (this.backgroundColor >> 8) & 0xFF;
-        int b = (this.backgroundColor) & 0xFF;
+        int r = (this.flatBackgroundColor >> 16) & 0xFF;
+        int g = (this.flatBackgroundColor >> 8) & 0xFF;
+        int b = (this.flatBackgroundColor) & 0xFF;
         r = (r - 30 < 0) ? 0 : r - 30;
         g = (g - 30 < 0) ? 0 : g - 30;
         b = (b - 30 < 0) ? 0 : b - 30;
@@ -159,17 +169,19 @@ public abstract class MaterialButton extends CustomView {
     }
     // Set color of background
     public void setBackgroundColor(int color) {
-        this.backgroundColor = color;
+
+        this.flatBackgroundColor = color;
         if (isEnabled()) {
-            beforeBackground = backgroundColor;
+            beforeBackground = flatBackgroundColor;
         }
+
         try {
             LayerDrawable layer = (LayerDrawable) getBackground();
             GradientDrawable shape = (GradientDrawable) layer
                     .findDrawableByLayerId(R.id.shape_background);
-            shape.setColor(backgroundColor);
+            shape.setColor(flatBackgroundColor);
         } catch (Exception ex) {
-// Without bacground
+        // Without bacground
         }
     }
 

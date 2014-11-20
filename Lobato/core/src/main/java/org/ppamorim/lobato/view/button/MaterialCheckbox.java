@@ -71,10 +71,10 @@ public class MaterialCheckbox extends CustomView {
 
     protected void setAttributes(Context context, AttributeSet attrs) {
         mContext = context;
-        TypedArray style = context.obtainStyledAttributes(attrs, R.styleable.lobato_checkbox);
-        mAccentColor = style.getColor(R.styleable.lobato_checkbox_accent_color, accentColor);
-        mStrokeColor = style.getColor(R.styleable.lobato_checkbox_stroke_color, strokeColor);
-        mBackgroundColor = style.getColor(R.styleable.lobato_checkbox_background_color, backgroundColor);
+        TypedArray style = context.obtainStyledAttributes(attrs, R.styleable.lobato_colors);
+        mAccentColor = style.getColor(R.styleable.lobato_colors_accent_color, accentColor);
+        mStrokeColor = style.getColor(R.styleable.lobato_colors_stroke_color, strokeColor);
+        mBackgroundColor = style.getColor(R.styleable.lobato_colors_background_color, backgroundColor);
 
         setBackgroundResource(R.drawable.background_checkbox);
 
@@ -166,10 +166,7 @@ public class MaterialCheckbox extends CustomView {
     }
 
     private void changeBackgroundColor(int color) {
-        LayerDrawable layer = (LayerDrawable) getBackground();
-        GradientDrawable shape = (GradientDrawable) layer
-                .findDrawableByLayerId(R.id.shape_background);
-        shape.setColor(color);
+        ((GradientDrawable)((LayerDrawable) getBackground()).findDrawableByLayerId(R.id.shape_background)).setColor(color);
     }
 
     /**

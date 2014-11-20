@@ -4,17 +4,15 @@
         <attr name="font" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="lobato_checkbox">
+    <declare-styleable name="lobato_colors">
         <attr name="accent_color" format="color"/>
         <attr name="stroke_color" format="color"/>
         <attr name="background_color" format="color"/>
-    </declare-styleable>
-
-    <declare-styleable name="lobato_button_flat">
-        <attr name="background_color" format="color"/>
+        <attr name="text_color" format="color"/>
         <attr name="ripple_color" format="color"/>
         <attr name="ripple_speed" format="integer"/>
         <attr name="ripple_size" format="integer"/>
+        <attr name="uppercase" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="lobato_CustomAttributes">

@@ -31,37 +31,32 @@ import org.ppamorim.lobato.utils.Utils;
 
 public class MaterialFlatButton extends MaterialButton {
 
-
-
     private TextView mTextView;
-
     private Context mContext;
+
+    private Paint mPaint = new Paint();
 
     public MaterialFlatButton(Context context) {
         this(context, null);
     }
 
     public MaterialFlatButton(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public MaterialFlatButton(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        super(context, attrs);
         mContext = context;
+
         if(mTextView != null) {
             setCustomFont(context, mTextView, attrs);
         }
-    }
 
-    @Override
-    public TextView getTextView() {
-        return mTextView;
+        mPaint.setAntiAlias(true);
+
     }
 
     protected void setDefaultProperties(){
         minHeight = 36;
         minWidth = 88;
         rippleSize = 3;
+        rippleSpeed = 10f;
         // Min size
         setMinimumHeight(Utils.dpToPx(minHeight, getResources()));
         setMinimumWidth(Utils.dpToPx(minWidth, getResources()));
@@ -71,11 +66,13 @@ public class MaterialFlatButton extends MaterialButton {
     @Override
     protected void setAttributes(AttributeSet attrs) {
 
-        TypedArray style = mContext.obtainStyledAttributes(attrs, R.styleable.lobato_button_flat);
-        mBackgroundColor = style.getColor(R.styleable.lobato_button_flat_background_color, backgroundColor);
-        mRippleColor = style.getColor(R.styleable.lobato_button_flat_ripple_color, accentColor);
-        mRippleSpeed = style.getInteger(R.styleable.lobato_button_flat_ripple_speed, (int)rippleSpeed);
-        mRippleSize = style.getInteger(R.styleable.lobato_button_flat_ripple_size, rippleSize);
+        TypedArray style = getContext().obtainStyledAttributes(attrs, R.styleable.lobato_colors);
+        mBackgroundColor = style.getColor(R.styleable.lobato_colors_background_color, flatBackgroundColor);
+        mTextColor = style.getColor(R.styleable.lobato_colors_text_color, flatTextColor);
+        mRippleColor = style.getColor(R.styleable.lobato_colors_ripple_color, accentColor);
+        mRippleSpeed = style.getInteger(R.styleable.lobato_colors_ripple_speed, (int) rippleSpeed);
+        mRippleSize = style.getInteger(R.styleable.lobato_colors_ripple_size, rippleSize);
+        mIsUppercase = style.getBoolean(R.styleable.lobato_colors_uppercase, false);
 
         String text = null;
         int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
@@ -86,32 +83,27 @@ public class MaterialFlatButton extends MaterialButton {
         }
         if(text != null){
             mTextView = new TextView(getContext());
-            mTextView.setText(text.toUpperCase());
-            mTextView.setTextColor(backgroundColor);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+
+            if(mIsUppercase) {
+                mTextView.setText(text.toUpperCase());
+            } else {
+                mTextView.setText(text);
+            }
+            mTextView.setTextColor(mTextColor);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             mTextView.setLayoutParams(params);
             addView(mTextView);
         }
-        int bacgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,"background",-1);
-        if(bacgroundColor != -1){
-            setBackgroundColor(getResources().getColor(bacgroundColor));
-        }else{
-            // Color by hexadecimal
-            String background = attrs.getAttributeValue(ANDROID_XML,"background");
-            if(background != null) {
-                setBackgroundColor(Color.parseColor(background));
-            }
-        }
+
     }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (x != -1) {
-            Paint paint = new Paint();
-            paint.setAntiAlias(true);
-            paint.setColor(makePressColor());
-            canvas.drawCircle(x, y, radius, paint);
+
+            mPaint.setColor(makePressColor());
+            canvas.drawCircle(x, y, radius, mPaint);
             if(radius > getHeight()/rippleSize)
                 radius += rippleSpeed;
             if(radius >= getWidth()){
@@ -136,16 +128,14 @@ public class MaterialFlatButton extends MaterialButton {
     public void setText(String text){
         mTextView.setText(text.toUpperCase());
     }
-    // Set color of background
-    public void setBackgroundColor(int color){
-        backgroundColor = color;
-        if(isEnabled())
-            beforeBackground = backgroundColor;
-        mTextView.setTextColor(color);
-    }
 
     public String getText(){
         return mTextView.getText().toString();
+    }
+
+    @Override
+    public TextView getTextView() {
+        return mTextView;
     }
 
 }
