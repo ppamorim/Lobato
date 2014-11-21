@@ -45,7 +45,7 @@ public class MaterialSwitch extends CustomView {
     }
     // Set atributtes of XML to View
     protected void setAttributes(AttributeSet attrs) {
-        setBackgroundResource(R.drawable.background_transparent);
+        setBackgroundResource(R.drawable.background_flat);
 // Set size of view
         setMinimumHeight(Utils.dpToPx(48, getResources()));
         setMinimumWidth(Utils.dpToPx(80, getResources()));

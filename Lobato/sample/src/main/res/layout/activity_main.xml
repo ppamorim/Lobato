@@ -19,35 +19,35 @@
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFF">
 
     <org.ppamorim.lobato.view.button.MaterialFlatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@color/abc_search_url_text_normal"
         materialdesign:font="squaredance10"
         materialdesign:text_color="#FF00"
+        materialdesign:ripple_color="#FF5"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
-        android:text="background = transparent"/>
+        android:text="background = transparent\n font color = #FF00"/>
 
     <org.ppamorim.lobato.view.button.MaterialFlatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         materialdesign:font="squaredance10"
-        materialdesign:text_color="#FF00"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
-        android:text="background = null"/>
+        android:text="background = null\n font color = null"/>
 
     <org.ppamorim.lobato.view.button.MaterialRaisedButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FF00"
+        android:background="#FF5252"
         materialdesign:font="squaredance10"
-        materialdesign:text_color="#FF00"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         materialdesign:font="squaredance10"
         materialdesign:text_color="#FF00"
+        materialdesign:ripple_color="#FF82"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"

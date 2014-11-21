@@ -1,6 +1,7 @@
 package org.ppamorim.lobato.view.button;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,13 +21,17 @@ public class MaterialRaisedButton extends MaterialButton {
 
     private TextView mTextView;
 
-    private Context mContext;
     private Paint mPaint = new Paint();
-    private Canvas mCanvas = new Canvas();
+    private Canvas mCanvasLayout = new Canvas();
     private GradientDrawable gradientDrawable;
 
-    private Rect mSrc;
-    private Rect mDst;
+    private Rect src;
+    private Rect dst;
+
+    private Resources mResources;
+
+    private int firstOffsetValue;
+    private int secondOffsetValue;
 
     public MaterialRaisedButton(Context context) {
         this(context, null);
@@ -34,7 +39,14 @@ public class MaterialRaisedButton extends MaterialButton {
 
     public MaterialRaisedButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
+
+        mResources = getResources();
+
+        firstOffsetValue = Utils.dpToPx(6, mResources);
+        secondOffsetValue = Utils.dpToPx(7, mResources);
+
+        src = new Rect();
+        dst = new Rect();
 
         if(mTextView != null) {
             setCustomFont(context, mTextView, attrs);
@@ -42,47 +54,46 @@ public class MaterialRaisedButton extends MaterialButton {
         mPaint.setAntiAlias(true);
     }
 
+    protected void setDefaultProperties(){
+        rippleSize = 10;
+        rippleSpeed = 10f;
+        rippleFadeSpeed = 5f;
+    }
+
     @Override
     protected void setAttributes(AttributeSet attrs) {
 
         TypedArray style = getContext().obtainStyledAttributes(attrs, R.styleable.lobato_colors);
-        mTextColor = style.getColor(R.styleable.lobato_colors_text_color, flatTextColor);
-        rippleColor = style.getColor(R.styleable.lobato_colors_ripple_color, accentColor);
+        mTextColor = style.getColor(R.styleable.lobato_colors_text_color, baseButtonColor);
+        rippleColor = style.getColor(R.styleable.lobato_colors_ripple_color, makePressColor());
         rippleSpeed = style.getInteger(R.styleable.lobato_colors_ripple_speed, (int) rippleSpeed);
         rippleSize = style.getInteger(R.styleable.lobato_colors_ripple_size, rippleSize);
         mIsUppercase = style.getBoolean(R.styleable.lobato_colors_uppercase, false);
 
-        mSrc = new Rect(0, 0,
-                getWidth()-Utils.dpToPx(6, getResources()),
-                getHeight()-Utils.dpToPx(7, getResources()));
+        String text = null;
+        int color = 0;
 
-        mDst = new Rect(
-                Utils.dpToPx(6, getResources()),
-                Utils.dpToPx(6, getResources()),
-                getWidth()-Utils.dpToPx(6, getResources()),
-                getHeight()-Utils.dpToPx(7, getResources()));
 
-        setBackgroundResource(R.drawable.background_button_rectangle);
+        setBackgroundResource(R.drawable.background_raised);
         LayerDrawable layer = (LayerDrawable) getBackground();
         gradientDrawable = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_raised_background);
 
-
+        //Set background Color
+        // Color by resource
         int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
         int backgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,"background",-1);
 
         if(backgroundColor != -1){
             gradientDrawable.setColor(getResources().getColor(backgroundColor));
         } else {
-
+            // Color by hexadecimal
             String background = attrs.getAttributeValue(ANDROID_XML, "background");
             if (background != null) {
                 gradientDrawable.setColor(Color.parseColor(background));
             } else {
-                gradientDrawable.setColor(Color.WHITE);
+                gradientDrawable.setColor(accentButtonColor);
             }
         }
-
-        String text;
 
         if(textResource != -1){
             text = getResources().getString(textResource);
@@ -102,16 +113,29 @@ public class MaterialRaisedButton extends MaterialButton {
 
         }
 
+
+
         int padding = Utils.dpToPx(minPadding, getResources());
         setPadding(padding, padding, padding, padding);
 
     }
 
     @Override
-    protected void onDraw(Canvas canvass) {
+    protected void onDraw(Canvas canvas) {
+
         if (x != -1) {
-            mCanvas.drawBitmap(makeCircle(), mSrc, mDst, null);
-            gradientDrawable.draw(mCanvas);
+
+            src.set(0, 0,
+                    getWidth() - firstOffsetValue,
+                    getHeight() - secondOffsetValue);
+
+            dst.set(firstOffsetValue,
+                    firstOffsetValue,
+                    getWidth() - firstOffsetValue,
+                    getHeight()- secondOffsetValue);
+
+            canvas.drawBitmap(makeCircle(), src, dst, null);
+            gradientDrawable.draw(mCanvasLayout);
         }
         invalidate();
     }

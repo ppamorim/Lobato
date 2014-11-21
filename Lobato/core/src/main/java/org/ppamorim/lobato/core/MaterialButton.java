@@ -51,7 +51,8 @@ public abstract class MaterialButton extends CustomView {
     public boolean mIsUppercase;
 
     public int flatBackgroundColor = Color.parseColor("#EEEEEE");
-    public int flatTextColor = Color.parseColor("#E20003");
+    public int baseButtonColor = Color.parseColor("#FFFFFF");
+    public int accentButtonColor = Color.parseColor("#2196F3");
 
     public int raisedBackgroundColor = Color.parseColor("#2196F3");
     public int raisedTextColor = Color.parseColor("#FFFFFF");
@@ -144,7 +145,7 @@ public abstract class MaterialButton extends CustomView {
         canvas.drawARGB(0, 0, 0, 0);
 
         Paint paint = new Paint();
-        paint.setColor(makePressColor());
+        paint.setColor(rippleColor);
         paint.setAlpha(alpha);
 
         if(alpha > 0) {
