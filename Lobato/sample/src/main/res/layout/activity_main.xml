@@ -14,69 +14,122 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto">
 
-    <org.ppamorim.lobato.view.button.MaterialFlatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/abc_search_url_text_normal"
-        materialdesign:font="squaredance10"
-        materialdesign:text_color="#FF00"
-        materialdesign:ripple_color="#FF5"
-        android:padding="16dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="background = transparent\n font color = #FF00"/>
+    <LinearLayout   android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF">
 
-    <org.ppamorim.lobato.view.button.MaterialFlatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        materialdesign:font="squaredance10"
-        android:padding="16dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="background = null\n font color = null"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="Custom font_color, ripple_color and another params:"/>
 
-    <org.ppamorim.lobato.view.button.MaterialRaisedButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FF5252"
-        materialdesign:font="squaredance10"
-        android:padding="16dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="background = #FFF"/>
-
-    <org.ppamorim.lobato.view.button.MaterialRaisedButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        materialdesign:font="squaredance10"
-        materialdesign:text_color="#FF00"
-        materialdesign:ripple_color="#FF82"
-        android:padding="16dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="background = null"/>
-
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="72dp" >
-        <org.ppamorim.lobato.view.button.MaterialCheckbox
-            android:id="@+id/checkBox"
+        <org.ppamorim.lobato.view.button.MaterialFlatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            materialdesign:accent_color="#FFF0"
-            materialdesign:stroke_color="#F00F00"
-            materialdesign:background_color = "#597AFF"
-            materialdesign:lobato_check="true" />
-    </RelativeLayout>
+            android:background="@color/abc_search_url_text_normal"
+            materialdesign:font="squaredance10"
+            materialdesign:text_color="#FF00"
+            materialdesign:ripple_color="#FF5"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="background = transparent\n font color = #FF00"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="no background_color param and font_color:"/>
+
+        <org.ppamorim.lobato.view.button.MaterialFlatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            materialdesign:font="squaredance10"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="background = null\n font color = null"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="no background_color param and font_color:"/>
+
+        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF5252"
+            materialdesign:font="squaredance10"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="background = #FFF"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="Custom font_color, ripple_color and another params:"/>
+
+        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            materialdesign:font="squaredance10"
+            materialdesign:text_color="#FF00"
+            materialdesign:ripple_color="#FF82"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="background = null"/>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="72dp" >
+
+            <org.ppamorim.lobato.view.button.MaterialCheckbox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                materialdesign:accent_color="#009688"
+                materialdesign:stroke_color="#656565"
+                materialdesign:background_color="#FFF"
+                materialdesign:unchecked_color="#A4A4A4"
+                materialdesign:check="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="Hover to discover"/>
+
+        <org.ppamorim.lobato.view.sliders.MaterialSlider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="#FF5252"
+            materialdesign:max="100"
+            materialdesign:min="1"
+            materialdesign:showNumberIndicator="true"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -8,6 +8,7 @@
         <attr name="accent_color" format="color"/>
         <attr name="stroke_color" format="color"/>
         <attr name="background_color" format="color"/>
+        <attr name="unchecked_color" format="color"/>
         <attr name="text_color" format="color"/>
         <attr name="ripple_color" format="color"/>
         <attr name="ripple_speed" format="integer"/>
@@ -15,27 +16,27 @@
         <attr name="uppercase" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="lobato_CustomAttributes">
-        <!-- indicate if the slider must show number indicator -->
-        <attr name="lobato_showNumberIndicator" format="boolean" />
-        <!-- in progress view indicate max value of progress -->
-        <attr name="lobato_max" format="integer" />
-        <!-- in progress view indicate min value of progress -->
-        <attr name="lobato_min" format="integer" />
-        <!-- in progress view indicate value of progress -->
-        <attr name="lobato_value" format="integer" />
-        <!-- in progress view indicate value of progress -->
-        <attr name="lobato_progress" format="integer" />
-        <!-- in switche's view indicate state of view -->
-        <attr name="lobato_check" format="boolean" />
-        <!-- in float button indicate icon resource -->
-        <attr name="lobato_iconFloat" format="integer" />
-        <!-- in float button indicate if must start with animation -->
-        <attr name="lobato_animate" format="boolean" />
-        <!-- Speed of ripple animation -->
-        <attr name="lobato_rippleSpeed" format="float" />
-        <!-- in float button indicate if must start with animation -->
-        <attr name="lobato_rippleColor" format="color|reference" />
+    <declare-styleable name="CustomAttributes">
+        <!--        indicate if the slider must show number indicator -->
+        <attr name="showNumberIndicator" format="boolean" />
+        <!--        in progress view indicate max value of progress -->
+        <attr name="max" format="integer" />
+        <!--        in progress view indicate min value of progress -->
+        <attr name="min" format="integer" />
+        <!--        in progress view indicate value of progress -->
+        <attr name="value" format="integer" />
+        <!--        in progress view indicate value of progress -->
+        <attr name="progress" format="integer" />
+        <!--        in switche's view indicate state of view -->
+        <attr name="check" format="boolean" />
+        <!--        in float button indicate icon resource -->
+        <attr name="iconFloat" format="integer" />
+        <!--        in float button indicate if must start with animation -->
+        <attr name="animate" format="boolean" />
+        <!--        Speed of ripple animation -->
+        <attr name="rippleSpeed" format="float" />
+        <!--        in float button indicate if must start with animation -->
+        <attr name="rippleColor" format="color|reference" />
     </declare-styleable>
 
 </resources>
