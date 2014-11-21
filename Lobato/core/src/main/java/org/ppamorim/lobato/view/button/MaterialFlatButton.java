@@ -53,6 +53,7 @@ public class MaterialFlatButton extends MaterialButton {
     }
 
     protected void setDefaultProperties(){
+        
         minHeight = 36;
         minWidth = 88;
         rippleSize = 3;
