@@ -30,12 +30,14 @@ public class CustomView extends RelativeLayout {
     public final static String MATERIAL_DESIGN_XML = "http://schemas.android.com/apk/res-auto";
     public final static String ANDROID_XML = "http://schemas.android.com/apk/res/android";
 
-    public int backgroundColor = Color.TRANSPARENT;
+    public int backgroundColor = Color.YELLOW;
     public int accentColor = Color.parseColor("#009688");
     public int strokeColor = Color.parseColor("#6D6D6D");
 
-    public final int disabledBackgroundColor = getResources().getColor(R.color.lobato_disabled_view);
-    public int beforeBackground = getResources().getColor(R.color.lobato_reset_view);
+//    public final int disabledBackgroundColor = getResources().getColor(R.color.lobato_disabled_view);
+//    public int beforeBackground = getResources().getColor(R.color.lobato_reset_view);
+    public final int disabledBackgroundColor = Color.YELLOW;
+    public int beforeBackground = Color.YELLOW;
 
     public boolean isLastTouch = false;
 
@@ -67,11 +69,11 @@ public class CustomView extends RelativeLayout {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if(enabled) {
-            setBackgroundColor(beforeBackground);
-        } else {
-            setBackgroundColor(disabledBackgroundColor);
-        }
+//        if(enabled) {
+//            setBackgroundColor(beforeBackground);
+//        } else {
+//            setBackgroundColor(disabledBackgroundColor);
+//        }
     }
 
 }

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/shape_flat_background">
+
+    <item android:drawable="@drawable/lobato_background_button">
+    </item>
+    <item android:id="@+id/shape_raised_background">
         <shape android:shape="rectangle" >
             <corners android:radius="2dp" />
             <solid android:color="@android:color/transparent"/>

@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ import org.ppamorim.lobato.utils.Utils;
 
 public class MaterialFlatButton extends MaterialButton {
 
-    private TextView mTextView;
+    public TextView mTextView;
     private Context mContext;
 
     private Paint mPaint = new Paint();
@@ -51,13 +52,9 @@ public class MaterialFlatButton extends MaterialButton {
     }
 
     protected void setDefaultProperties(){
-
         rippleSize = 10;
-        rippleSpeed = 5f;
-
-        setBackgroundResource(R.drawable.lobato_background_transparent);
-        int padding = Utils.dpToPx(minPadding, getResources());
-        setPadding(padding, padding, padding, padding);
+        rippleSpeed = 10f;
+        rippleFadeSpeed = 5f;
     }
 
     @Override
@@ -72,13 +69,21 @@ public class MaterialFlatButton extends MaterialButton {
         mIsUppercase = style.getBoolean(R.styleable.lobato_colors_uppercase, false);
 
         String text = null;
+        int color = 0;
+
         int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
+        int backgroundResource = attrs.getAttributeResourceValue(ANDROID_XML ,"background", -1);
+        int xmlRes = attrs.getAttributeResourceValue(ANDROID_XML, "background", -1);
         if(textResource != -1){
             text = getResources().getString(textResource);
         }else{
-            text = attrs.getAttributeValue(ANDROID_XML,"text");
+            text = attrs.getAttributeValue(ANDROID_XML, "text");
         }
+
+        setBackgroundResource(R.drawable.background_transparent);
+
         if(text != null){
+
             mTextView = new TextView(getContext());
 
             if(mIsUppercase) {
@@ -87,8 +92,6 @@ public class MaterialFlatButton extends MaterialButton {
                 mTextView.setText(text);
             }
 
-            int padding = Utils.dpToPx(minPadding, getResources());
-
             mTextView.setTextColor(mTextColor);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -96,26 +99,33 @@ public class MaterialFlatButton extends MaterialButton {
             addView(mTextView);
         }
 
+        int padding = Utils.dpToPx(minPadding, getResources());
+        setPadding(padding, padding, padding, padding);
+
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (x != -1) {
+
             mPaint.setColor(makePressColor());
             mPaint.setAlpha(alpha);
-            if(alpha > 1) {
+
+            if(alpha > 0) {
                 alpha--;
             }
+
             canvas.drawCircle(x, y, radius, mPaint);
-            if(radius > getHeight()/rippleSize)
+
+            if(radius > getHeight()/rippleSize) {
                 radius += rippleSpeed;
-            if(radius >= getWidth()){
-                x = -1;
-                y = -1;
-                radius = getHeight()/rippleSize;
-                if(onClickListener != null)
-                    onClickListener.onClick(this);
             }
+
+            if(radius >= getWidth() && onClickListener != null){
+                onClickListener.onClick(this);
+            }
+
         }
         invalidate();
     }
@@ -134,6 +144,12 @@ public class MaterialFlatButton extends MaterialButton {
 
     public String getText(){
         return mTextView.getText().toString();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 
     @Override

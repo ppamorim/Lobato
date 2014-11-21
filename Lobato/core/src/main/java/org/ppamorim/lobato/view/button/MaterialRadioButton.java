@@ -35,14 +35,14 @@ import org.ppamorim.lobato.utils.Utils;
 
 public class MaterialRadioButton extends CustomView {
 
-    int backgroundColor = Color.parseColor("#4CAF50");
+    public static final String TAG = "MaterialRadioButton";
 
-    Check checkView;
+    private boolean press = false;
+    private boolean check = false;
 
-    boolean press = false;
-    boolean check = false;
+    private Check checkView;
 
-    OnCheckListener onCheckListener;
+    private OnCheckListener onCheckListener;
 
     public MaterialRadioButton(Context context) {
         super(context);
@@ -56,7 +56,6 @@ public class MaterialRadioButton extends CustomView {
         super(context, attrs, defStyle);
     }
 
-    // Set atributtes of XML to View
     protected void setAttributes(AttributeSet attrs) {
 
         setBackgroundResource(R.drawable.background_checkbox);
