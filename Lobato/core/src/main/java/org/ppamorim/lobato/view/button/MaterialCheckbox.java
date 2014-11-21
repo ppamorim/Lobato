@@ -29,6 +29,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.ppamorim.lobato.core.CustomView;
 import org.ppamorim.lobato.core.R;
@@ -98,13 +99,21 @@ public class MaterialCheckbox extends CustomView {
 
         }
 
-//        checkView = new Check(getContext());
-//
-//        RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(20,
-//                getResources()), Utils.dpToPx(20, getResources()));
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//        checkView.setLayoutParams(params);
-//        addView(checkView);
+        checkView = new Check(getContext());
+        Ball ball = new Ball(getContext());
+
+
+        RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(80,
+                getResources()), Utils.dpToPx(80, getResources()));
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        RelativeLayout.LayoutParams param2s = new LayoutParams(Utils.dpToPx(20,
+                getResources()), Utils.dpToPx(20, getResources()));
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        checkView.setLayoutParams(param2s);
+        ball.setLayoutParams(params);
+
+        addView(ball);
+        addView(checkView);
 
     }
 
@@ -116,6 +125,7 @@ public class MaterialCheckbox extends CustomView {
             isLastTouch = true;
 
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                addView(new CustomView(getContext()));
 
 //                changeBackgroundColor((check) ? makePressColor() : Color
 //                        .parseColor("#446D6D6D"))
@@ -259,6 +269,16 @@ public class MaterialCheckbox extends CustomView {
             src.set(40 * step, 0, (40 * step) + 40, 40);
             dst.set(0, 0, this.getWidth() - 2, this.getHeight());
 
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setStyle(Paint.Style.FILL);
+
+            canvas.drawCircle(x, y, radius, paint);
+            if(radius < 50) {
+
+                radius++;
+                invalidate();
+            }
 
             canvas.drawBitmap(sprite, src, dst, null);
             invalidate();
@@ -287,6 +307,45 @@ public class MaterialCheckbox extends CustomView {
         radius += rippleSpeed;
 
         return output;
+    }
+
+    public class Ball extends View {
+
+        Bitmap mBitmap;
+        Paint paint;
+        int radius = 0;
+
+        public Ball(Context context) {
+            super(context);
+            mBitmap = Bitmap.createBitmap(400, 800, Bitmap.Config.ARGB_8888);
+            paint = new Paint();
+            paint.setColor(Color.YELLOW);
+            paint.setStyle(Paint.Style.FILL);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            canvas.drawCircle(getWidth()/2, getHeight()/2, radius, paint);
+            if(radius < 80) {
+
+//                radius++;
+                radius++;
+                invalidate();
+            }
+        }
+
+        private int calculeLerp(int value) {
+            return (int)radius*(1-radius/2) + 2*radius/2;
+        }
+
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                radius = 0;
+                invalidate();
+            }
+            return false;
+        }
     }
 
 }
