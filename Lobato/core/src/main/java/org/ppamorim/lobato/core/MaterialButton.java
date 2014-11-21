@@ -34,19 +34,21 @@ public abstract class MaterialButton extends CustomView {
 
     public int minWidth;
     public int minHeight;
+    public  int minPadding = 16;
     public int background;
-    public float rippleSpeed = 10f;
 
     // ### RIPPLE EFFECT ###
     public int rippleSize = 3;
     public float x = -1, y = -1;
     public float radius = -1;
 
+    public int rippleColor;
+    public float rippleSpeed = 10f;
+    public int alpha = (int)rippleSpeed * 25;
+
     public int mBackgroundColor;
     public int mTextColor;
-    public int mRippleColor;
-    public int mRippleSpeed;
-    public int mRippleSize;
+
     public boolean mIsUppercase;
 
     public int flatBackgroundColor = Color.parseColor("#EEEEEE");
@@ -85,32 +87,40 @@ public abstract class MaterialButton extends CustomView {
 
         if (isEnabled()) {
             isLastTouch = true;
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                radius = getHeight() / rippleSize;
-                x = event.getX();
-                y = event.getY();
-            } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                radius = getHeight() / rippleSize;
-                x = event.getX();
-                y = event.getY();
-                if (!((event.getX() <= getWidth() && event.getX() >= 0) && (event
-                        .getY() <= getHeight() && event.getY() >= 0))) {
-                    isLastTouch = false;
-                    x = -1;
-                    y = -1;
-                }
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                if ((event.getX() <= getWidth() && event.getX() >= 0)
-                        && (event.getY() <= getHeight() && event.getY() >= 0)) {
-                    radius++;
-                } else {
-                    isLastTouch = false;
-                    x = -1;
-                    y = -1;
-                }
+            alpha = (int)rippleSpeed * 25;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    setElementParams(event);
+                    if (!verifyWidthAndHeight(event) &&
+                            event.getAction() == MotionEvent.ACTION_MOVE ||
+                            event.getAction() != MotionEvent.ACTION_UP) {
+                        resetTouchValues();
+                    } else {
+                        radius++;
+                    }
+                    break;
             }
         }
         return true;
+    }
+
+    private void resetTouchValues() {
+        isLastTouch = false;
+        x = -1;
+        y = -1;
+    }
+
+    private boolean verifyWidthAndHeight(MotionEvent event) {
+        return ((event.getX() <= getWidth() && event.getX() >= 0) &&
+                (event.getY() <= getHeight() && event.getY() >= 0));
+    }
+
+    private void setElementParams(MotionEvent event) {
+        radius = getHeight() / rippleSize;
+        x = event.getX();
+        y = event.getY();
     }
 
     @Override
@@ -137,6 +147,8 @@ public abstract class MaterialButton extends CustomView {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(makePressColor());
+        paint.setAlpha(alpha);
+        alpha--;
         canvas.drawCircle(x, y, radius, paint);
         if (radius > getHeight() / rippleSize)
             radius += rippleSpeed;
