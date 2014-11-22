@@ -120,15 +120,15 @@
             android:padding="16dp"
             android:text="Hover to discover"/>
 
-        <org.ppamorim.lobato.view.sliders.MaterialSlider
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="#FF5252"
-            materialdesign:max="100"
-            materialdesign:min="1"
-            materialdesign:showNumberIndicator="true"/>
+        <!--<org.ppamorim.lobato.view.sliders.MaterialSlider-->
+            <!--android:id="@+id/slider"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="16dp"-->
+            <!--android:background="#FF5252"-->
+            <!--materialdesign:max="100"-->
+            <!--materialdesign:min="1"-->
+            <!--materialdesign:showNumberIndicator="true"/>-->
 
     </LinearLayout>
 

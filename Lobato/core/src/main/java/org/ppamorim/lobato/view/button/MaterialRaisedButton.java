@@ -42,7 +42,7 @@ public class MaterialRaisedButton extends MaterialButton {
 
         mResources = getResources();
 
-        firstOffsetValue = Utils.dpToPx(6, mResources);
+        firstOffsetValue = Utils.dpToPx(5, mResources);
         secondOffsetValue = Utils.dpToPx(7, mResources);
 
         src = new Rect();
@@ -84,14 +84,14 @@ public class MaterialRaisedButton extends MaterialButton {
         int backgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,"background",-1);
 
         if(backgroundColor != -1){
-            gradientDrawable.setColor(getResources().getColor(backgroundColor));
+            gradientDrawable.setColor(baseButtonColor);
         } else {
             // Color by hexadecimal
             String background = attrs.getAttributeValue(ANDROID_XML, "background");
             if (background != null) {
                 gradientDrawable.setColor(Color.parseColor(background));
             } else {
-                gradientDrawable.setColor(accentButtonColor);
+                gradientDrawable.setColor(baseButtonColor);
             }
         }
 
@@ -131,7 +131,7 @@ public class MaterialRaisedButton extends MaterialButton {
 
             dst.set(firstOffsetValue,
                     firstOffsetValue,
-                    getWidth() - firstOffsetValue,
+                    getWidth() - secondOffsetValue,
                     getHeight()- secondOffsetValue);
 
             canvas.drawBitmap(makeCircle(), src, dst, null);

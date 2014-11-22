@@ -114,52 +114,54 @@ public class MaterialCheckbox extends CustomView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        if (isEnabled() && event != null) {
+        System.out.println("event: " + event.getAction());
+
+        if (isEnabled()) {
 
             isLastTouch = true;
 
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            switch (event.getAction()) {
 
-                mShowBall = true;
-                mBall.invalidate();
+                case MotionEvent.ACTION_DOWN:
 
-//                changeBackgroundColor((isChecked) ? makePressColor() : Color
-//                        .parseColor("#446D6D6D"))
-//                ;
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mShowBall = true;
+                    mBall.invalidate();
+                    break;
 
-//                changeBackgroundColor(getResources().getColor(
-//                        android.R.color.transparent));
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
 
-                press = false;
-
-                mShowBall = false;
-                mBall.invalidate();
-
-                if ((event.getX() <= getWidth() && event.getX() >= 0)
-                        && (event.getY() <= getHeight() && event.getY() >= 0)) {
+                    mShowBall = false;
+                    mBall.invalidate();
 
 
+                    press = false;
+                    if ((event.getX() <= getWidth() && event.getX() >= 0)
+                            && (event.getY() <= getHeight() && event.getY() >= 0)) {
 
-                    isLastTouch = false;
-                    isChecked = !isChecked;
 
-                    if (onCheckListener != null) {
-                        onCheckListener.onCheck(isChecked);
+                        isLastTouch = false;
+                        isChecked = !isChecked;
+
+                        if (onCheckListener != null) {
+                            onCheckListener.onCheck(isChecked);
+                        }
+
+                        if (isChecked) {
+                            step = 0;
+                        }
+
+                        if (isChecked) {
+                            System.out.println("changeBackground");
+                            invalidate();
+                            checkView.changeBackground();
+                        }
+
                     }
 
-                    if (isChecked) {
-                        step = 0;
-                    }
-
-                    if (isChecked) {
-                        System.out.println("changeBackground");
-                        invalidate();
-                        checkView.changeBackground();
-                    }
-
-                }
+                    break;
             }
+
         }
         return true;
     }

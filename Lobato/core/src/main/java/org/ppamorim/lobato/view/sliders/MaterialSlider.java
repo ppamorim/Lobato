@@ -52,6 +52,8 @@ public class MaterialSlider extends CustomView {
 
     int secondaryBackgroundColor = Color.WHITE;
 
+    Canvas temp = new Canvas();
+
 	OnValueChangedListener onValueChangedListener;
 
 	public MaterialSlider(Context context, AttributeSet attrs) {
@@ -70,10 +72,10 @@ public class MaterialSlider extends CustomView {
 
 		// Set background Color
 		// Color by resource
-		int bacgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,
+		int backgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,
 				"background", -1);
-		if (bacgroundColor != -1) {
-			setBackgroundColor(getResources().getColor(bacgroundColor));
+		if (backgroundColor != -1) {
+			setBackgroundColor(getResources().getColor(backgroundColor));
 		} else {
 			// Color by hexadecimal
 			String background = attrs.getAttributeValue(ANDROID_XML,
@@ -110,10 +112,10 @@ public class MaterialSlider extends CustomView {
 			placeBall();
 
 		if (value == min) {
-			// Crop line to transparent effect
+
 			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(),
 					canvas.getHeight(), Bitmap.Config.ARGB_8888);
-			Canvas temp = new Canvas(bitmap);
+			temp.setBitmap(bitmap);
 
 			paint.setColor(secondaryBackgroundColor);
 			paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
@@ -158,8 +160,7 @@ public class MaterialSlider extends CustomView {
 		if (isEnabled()) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN
 					|| event.getAction() == MotionEvent.ACTION_MOVE) {
-				if (numberIndicator != null
-						&& numberIndicator.isShowing() == false)
+				if (numberIndicator != null && !numberIndicator.isShowing())
 					numberIndicator.show();
 				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
 					press = true;
@@ -225,7 +226,7 @@ public class MaterialSlider extends CustomView {
 	protected int makePressColor() {
 		int r = (this.backgroundColor >> 16) & 0xFF;
 		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
+		int b = (this.backgroundColor) & 0xFF;
 		r = (r - 30 < 0) ? 0 : r - 30;
 		g = (g - 30 < 0) ? 0 : g - 30;
 		b = (b - 30 < 0) ? 0 : b - 30;
@@ -256,7 +257,7 @@ public class MaterialSlider extends CustomView {
 	}
 
 	public void setValue(final int value) {
-		if (placedBall == false)
+		if (!placedBall)
 			post(new Runnable() {
 
 				@Override
