@@ -1,5 +1,11 @@
 ![](art/logo.png)
 
+What's it?
+=========
+
+A straightforward, highly customizable library that uses the Material Design. It also provides custom font options for all elements .
+
+
 Sample:
 =========
 ```xml
