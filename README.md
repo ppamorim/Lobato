@@ -1,5 +1,4 @@
-LOBATO
-==========
+![](art/logo.png)
 
 Sample:
 =========
@@ -9,6 +8,18 @@ Sample:
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <org.ppamorim.lobato.view.button.MaterialFlatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            materialdesign:font="custom_font_name"
+            materialdesign:text_color="#FF00"
+            materialdesign:ripple_color="#FF5"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="test"/>
+
 </RelativeLayout>
 
 ```
@@ -17,7 +28,7 @@ Gradle:
 =========
 ```groovy
 dependencies {
-
+  not uploaded yet :(
 }
 ```
 

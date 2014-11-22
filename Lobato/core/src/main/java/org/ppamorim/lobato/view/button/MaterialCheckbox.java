@@ -42,10 +42,6 @@ public class MaterialCheckbox extends CustomView {
     private int mStrokeColor;
     private int mUncheckedColor;
 
-    public int alpha = 255;
-
-    private Context mContext;
-
     private Ball mBall;
     private Check checkView;
 
@@ -63,7 +59,8 @@ public class MaterialCheckbox extends CustomView {
 
     private OnCheckListener onCheckListener;
 
-    public float x = -1, y = -1;
+    public float x = -1;
+    public float y = -1;
 
     public MaterialCheckbox(Context context) {
         this(context, null);
@@ -75,7 +72,7 @@ public class MaterialCheckbox extends CustomView {
     }
 
     protected void setAttributes(Context context, AttributeSet attrs) {
-        mContext = context;
+
         TypedArray style = context.obtainStyledAttributes(attrs, R.styleable.lobato_colors);
         mAccentColor = style.getColor(R.styleable.lobato_colors_accent_color, accentColor);
         mStrokeColor = style.getColor(R.styleable.lobato_colors_stroke_color, strokeColor);
@@ -114,8 +111,6 @@ public class MaterialCheckbox extends CustomView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        System.out.println("event: " + event.getAction());
-
         if (isEnabled()) {
 
             isLastTouch = true;
@@ -133,12 +128,10 @@ public class MaterialCheckbox extends CustomView {
 
                     mShowBall = false;
                     mBall.invalidate();
-
-
                     press = false;
+
                     if ((event.getX() <= getWidth() && event.getX() >= 0)
                             && (event.getY() <= getHeight() && event.getY() >= 0)) {
-
 
                         isLastTouch = false;
                         isChecked = !isChecked;
@@ -149,14 +142,9 @@ public class MaterialCheckbox extends CustomView {
 
                         if (isChecked) {
                             step = 0;
-                        }
-
-                        if (isChecked) {
-                            System.out.println("changeBackground");
                             invalidate();
                             checkView.changeBackground();
                         }
-
                     }
 
                     break;
@@ -170,13 +158,9 @@ public class MaterialCheckbox extends CustomView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (press) {
-
-//            mPaint.setAntiAlias(true);
-//            mPaint.setColor((isChecked) ? makePressColor() : Color
-//                    .parseColor("#446D6D6D"));
-            canvas.drawBitmap(makeCircle(),0,0,null);
-        }
+//        if (press) {
+//            canvas.drawBitmap(makeCircle(),0,0,null);
+//        }
         canvas.drawBitmap(makeCircle(),getWidth(),getHeight(),null);
         invalidate();
     }
@@ -195,24 +179,26 @@ public class MaterialCheckbox extends CustomView {
         b = (b + diff < 0) ? 0 : b + diff;
         return Color.argb(alpha, r, g, b);
     }
+
     @Override
     public void setBackgroundColor(int color) {
+
         accentColor = color;
-        if (isEnabled())
+        if (isEnabled()) {
             beforeBackground = accentColor;
-//        changeBackgroundColor(color);
+        }
+
     }
 
     public void setChecked(boolean check) {
+
         this.isChecked = check;
         setPressed(false);
-//        changeBackgroundColor(getResources().getColor(
-//                android.R.color.transparent));
+
         if (check) {
             step = 0;
-        }
-        if (check)
             checkView.changeBackground();
+        }
     }
 
     public boolean isChecked() {
@@ -221,14 +207,17 @@ public class MaterialCheckbox extends CustomView {
 
     int step = 0;
 
-
     class Check extends View {
+
         Bitmap sprite;
+
         public Check(Context context) {
             super(context);
+
             setBackgroundResource(R.drawable.background_checkbox_uncheck);
             sprite = BitmapFactory.decodeResource(context.getResources(),
                     R.drawable.sprite_check);
+
             mBall = new Ball(getContext());
             RelativeLayout.LayoutParams params = new LayoutParams(Utils.dpToPx(80,
                     getResources()), Utils.dpToPx(80, getResources()));
@@ -240,18 +229,22 @@ public class MaterialCheckbox extends CustomView {
         public void changeBackground() {
 
             if (isChecked) {
+
                 setBackgroundResource(R.drawable.background_checkbox_check);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
                         .findDrawableByLayerId(R.id.shape_background);
                 shape.setColor(accentColor);
+
             } else {
+
                 setBackgroundResource(R.drawable.background_checkbox_uncheck);
                 LayerDrawable layer = (LayerDrawable) getBackground();
                 GradientDrawable shape = (GradientDrawable) layer
                         .findDrawableByLayerId(R.id.shape_background);
                 shape.setColor(makePressColor(mUncheckedColor, 50, 80));
                 shape.setStroke(Math.round(2 * getResources().getDisplayMetrics().density), mStrokeColor);
+
             }
         }
 
@@ -274,10 +267,6 @@ public class MaterialCheckbox extends CustomView {
 
             src.set(40 * step, 0, (40 * step) + 40, 40);
             dst.set(0, 0, this.getWidth() - 2, this.getHeight());
-
-            Paint paint = new Paint();
-            paint.setColor(Color.RED);
-            paint.setStyle(Paint.Style.FILL);
 
             if(radius < 50) {
                 radius++;

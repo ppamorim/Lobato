@@ -95,6 +95,12 @@
             android:layout_gravity="center_horizontal"
             android:text="background = null"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="Hover to discover"/>
 
         <RelativeLayout
             android:layout_width="fill_parent"
