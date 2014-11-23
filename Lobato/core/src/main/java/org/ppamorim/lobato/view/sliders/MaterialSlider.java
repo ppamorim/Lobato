@@ -3,6 +3,7 @@ package org.ppamorim.lobato.view.sliders;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,6 +11,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Xfermode;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -31,6 +34,11 @@ public class MaterialSlider extends CustomView {
 		public void onValueChanged(int value);
 	}
 
+    private Bitmap mCurrentBitmap = null;
+    private BitmapFactory.Options mBitmapOptions;
+
+    private Paint mPaint = new Paint();
+
 	int backgroundColor = Color.parseColor("#4CAF50");
 
 	Ball ball;
@@ -42,6 +50,8 @@ public class MaterialSlider extends CustomView {
 	int value = 0;
 	int max = 100;
 	int min = 0;
+
+    private int mProgress;
 
     Xfermode mode = new PorterDuffXfermode(
             PorterDuff.Mode.CLEAR);
@@ -59,6 +69,9 @@ public class MaterialSlider extends CustomView {
 	public MaterialSlider(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setAttributes(attrs);
+
+        mBitmapOptions = new BitmapFactory.Options();
+        mBitmapOptions.inJustDecodeBounds = true;
 	}
 
 	// Set atributtes of XML to View
@@ -105,6 +118,29 @@ public class MaterialSlider extends CustomView {
 
 	}
 
+    // Great way to save a view's state http://stackoverflow.com/a/7089687/1991053
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        WheelSavedState ss = new WheelSavedState(superState);
+        // We save everything that can be changed at runtime
+        ss.mProgress = value;
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if(!(state instanceof WheelSavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        WheelSavedState ss = (WheelSavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        if(ss.mProgress > 0) {
+            setValue(ss.mProgress);
+        }
+    }
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -113,9 +149,13 @@ public class MaterialSlider extends CustomView {
 
 		if (value == min) {
 
-			Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(),
-					canvas.getHeight(), Bitmap.Config.ARGB_8888);
-			temp.setBitmap(bitmap);
+            if (mCurrentBitmap == null) {
+                mCurrentBitmap = Bitmap.createBitmap(canvas.getWidth(),
+                        canvas.getHeight(), Bitmap.Config.ARGB_8888);
+                mBitmapOptions.inBitmap = mCurrentBitmap;
+            }
+
+			temp.setBitmap(mCurrentBitmap);
 
 			paint.setColor(secondaryBackgroundColor);
 			paint.setStrokeWidth(Utils.dpToPx(2, getResources()));
@@ -130,7 +170,7 @@ public class MaterialSlider extends CustomView {
 					ViewHelper.getY(ball) + ball.getHeight() / 2,
 					ball.getWidth() / 2, transparentPaint);
 
-			canvas.drawBitmap(bitmap, 0, 0, new Paint());
+			canvas.drawBitmap(mCurrentBitmap, 0, 0, mPaint);
 		} else {
 
             paintTwo.setColor(secondaryBackgroundColor);
@@ -157,63 +197,75 @@ public class MaterialSlider extends CustomView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		isLastTouch = true;
+
 		if (isEnabled()) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN
-					|| event.getAction() == MotionEvent.ACTION_MOVE) {
-				if (numberIndicator != null && !numberIndicator.isShowing())
-					numberIndicator.show();
-				if ((event.getX() <= getWidth() && event.getX() >= 0)) {
-					press = true;
-					// calculate value
-					int newValue = 0;
-					float division = (ball.xFin - ball.xIni) / max;
-					if (event.getX() > ball.xFin) {
-						newValue = max;
-					} else if (event.getX() < ball.xIni) {
-						newValue = min;
-					} else {
-						newValue = (int) ((event.getX() - ball.xIni) / division);
-					}
-					if (value != newValue) {
-						value = newValue;
-						if (onValueChangedListener != null)
-							onValueChangedListener.onValueChanged(newValue);
-					}
-					// move ball indicator
-					float x = event.getX();
-					x = (x < ball.xIni) ? ball.xIni : x;
-					x = (x > ball.xFin) ? ball.xFin : x;
-					ViewHelper.setX(ball, x);
-					ball.changeBackground();
 
-					// If slider has number indicator
-					if (numberIndicator != null) {
-						// move number indicator
-						numberIndicator.indicator.x = x;
-						numberIndicator.indicator.finalY = Utils
-								.getRelativeTop(this) - getHeight() / 2;
-						numberIndicator.indicator.finalSize = getHeight() / 2;
-						numberIndicator.numberIndicator.setText("");
-					}
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
 
-				} else {
-					press = false;
-					isLastTouch = false;
-					if (numberIndicator != null)
-						numberIndicator.dismiss();
+                    if (numberIndicator != null && !numberIndicator.isShowing())
+                        numberIndicator.show();
+                    if ((event.getX() <= getWidth() && event.getX() >= 0)) {
+                        press = true;
+                        // calculate value
+                        int newValue = 0;
+                        float division = (ball.xFin - ball.xIni) / max;
+                        if (event.getX() > ball.xFin) {
+                            newValue = max;
+                        } else if (event.getX() < ball.xIni) {
+                            newValue = min;
+                        } else {
+                            newValue = (int) ((event.getX() - ball.xIni) / division);
+                        }
+                        if (value != newValue) {
+                            value = newValue;
+                            if (onValueChangedListener != null)
+                                onValueChangedListener.onValueChanged(newValue);
+                        }
+                        // move ball indicator
+                        float x = event.getX();
+                        x = (x < ball.xIni) ? ball.xIni : x;
+                        x = (x > ball.xFin) ? ball.xFin : x;
+                        ViewHelper.setX(ball, x);
+                        ball.changeBackground();
 
-				}
+                        // If slider has number indicator
+                        if (numberIndicator != null) {
+                            // move number indicator
+                            numberIndicator.indicator.x = x;
+                            numberIndicator.indicator.finalY = Utils
+                                    .getRelativeTop(this) - getHeight() / 2;
+                            numberIndicator.indicator.finalSize = getHeight() / 2;
+                            numberIndicator.numberIndicator.setText("");
+                        }
 
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				if (numberIndicator != null)
-					numberIndicator.dismiss();
-				isLastTouch = false;
-				press = false;
-				if ((event.getX() <= getWidth() && event.getX() >= 0)
-						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
+                    } else {
+                        press = false;
+                        isLastTouch = false;
+                        if (numberIndicator != null)
+                            numberIndicator.dismiss();
 
-				}
-			}
+                    }
+
+                    break;
+
+                case MotionEvent.ACTION_UP:
+
+                    clearFocus();
+
+                    if (numberIndicator != null)
+                        numberIndicator.dismiss();
+                    isLastTouch = false;
+                    press = false;
+
+                    break;
+
+                case MotionEvent.ACTION_CANCEL:
+                    clearFocus();
+                    break;
+            }
+
 		}
 		return true;
 	}
@@ -310,20 +362,31 @@ public class MaterialSlider extends CustomView {
 
 	boolean placedBall = false;
 
-	class Ball extends View {
+	class Ball extends View implements Parcelable {
 
 		float xIni, xFin, xCen;
 
-		public Ball(Context context) {
-			super(context);
-			setBackgroundResource(R.drawable.background_seekbar_uncheck);
-		}
+        public Ball(Context context) {
+            super(context);
+        }
 
-		public void changeBackground() {
+        public void changeBackground() {
             setBackgroundResource(R.drawable.background_seekbar_uncheck);
-		}
+        }
 
-	}
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeFloat(xIni);
+            parcel.writeFloat(xFin);
+            parcel.writeFloat(xCen);
+        }
+
+    }
 
 	// Slider Number Indicator
 
@@ -354,8 +417,8 @@ public class MaterialSlider extends CustomView {
 			content.addView(numberIndicator);
 
 			indicator.setLayoutParams(new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.FILL_PARENT,
-					RelativeLayout.LayoutParams.FILL_PARENT));
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT));
 		}
 
 		@Override
@@ -440,5 +503,39 @@ public class MaterialSlider extends CustomView {
 		}
 
 	}
+
+    static class WheelSavedState extends BaseSavedState {
+
+        private int mProgress;
+        private Ball mBall;
+
+        WheelSavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private WheelSavedState(Parcel in) {
+            super(in);
+            this.mProgress = in.readInt();
+            this.mBall = in.readParcelable(Ball.class.getClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.mProgress);
+            out.writeParcelable(mBall, flags);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<WheelSavedState> CREATOR =
+                new Parcelable.Creator<WheelSavedState>() {
+                    public WheelSavedState createFromParcel(Parcel in) {
+                        return new WheelSavedState(in);
+                    }
+                    public WheelSavedState[] newArray(int size) {
+                        return new WheelSavedState[size];
+                    }
+        };
+    }
 
 }

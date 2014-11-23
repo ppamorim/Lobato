@@ -17,6 +17,8 @@ import org.ppamorim.lobato.core.MaterialButton;
 import org.ppamorim.lobato.core.R;
 import org.ppamorim.lobato.utils.Utils;
 
+import java.util.regex.Pattern;
+
 public class MaterialRaisedButton extends MaterialButton {
 
     private TextView mTextView;
@@ -41,6 +43,7 @@ public class MaterialRaisedButton extends MaterialButton {
         super(context, attrs);
 
         mResources = getResources();
+
 
         firstOffsetValue = Utils.dpToPx(5, mResources);
         secondOffsetValue = Utils.dpToPx(7, mResources);
@@ -67,33 +70,36 @@ public class MaterialRaisedButton extends MaterialButton {
         mTextColor = style.getColor(R.styleable.lobato_colors_text_color, baseButtonColor);
         rippleColor = style.getColor(R.styleable.lobato_colors_ripple_color, makePressColor());
         rippleSpeed = style.getInteger(R.styleable.lobato_colors_ripple_speed, (int) rippleSpeed);
+        fadeColorSpeed = style.getFloat(R.styleable.lobato_colors_fade_speed, fadeColorSpeed);
         rippleSize = style.getInteger(R.styleable.lobato_colors_ripple_size, rippleSize);
         mIsUppercase = style.getBoolean(R.styleable.lobato_colors_uppercase, false);
+        effectBaseButtonColor = style.getColor(R.styleable.lobato_colors_press_color, effectBaseButtonColor);
 
-        String text = null;
-        int color = 0;
-
+        String text;
 
         setBackgroundResource(R.drawable.background_raised);
         LayerDrawable layer = (LayerDrawable) getBackground();
         gradientDrawable = (GradientDrawable) layer.findDrawableByLayerId(R.id.shape_raised_background);
 
-        //Set background Color
-        // Color by resource
-        int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
-        int backgroundColor = attrs.getAttributeResourceValue(ANDROID_XML,"background",-1);
 
-        if(backgroundColor != -1){
+        Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+
+        String attrBackground = attrs.getAttributeValue(ANDROID_XML, "background");
+        if(attrBackground != null) {
+            baseButtonColor = Color.parseColor(attrBackground);
+        }
+
+        if(colorPattern.matcher(convertIntColorToString(baseButtonColor)).matches()) {
             gradientDrawable.setColor(baseButtonColor);
         } else {
-            // Color by hexadecimal
-            String background = attrs.getAttributeValue(ANDROID_XML, "background");
-            if (background != null) {
-                gradientDrawable.setColor(Color.parseColor(background));
-            } else {
-                gradientDrawable.setColor(baseButtonColor);
-            }
+            gradientDrawable.setColor(Color.WHITE);
         }
+
+        if(effectBaseButtonColor == 0) {
+            effectBaseButtonColor = makeTouchColor(baseButtonColor);
+        }
+
+        int textResource = attrs.getAttributeResourceValue(ANDROID_XML ,"text", -1);
 
         if(textResource != -1){
             text = getResources().getString(textResource);
@@ -120,6 +126,10 @@ public class MaterialRaisedButton extends MaterialButton {
 
     }
 
+    private String convertIntColorToString(int value) {
+        return String.format(String.format("#%06X", 0xFFFFFF & value));
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -134,7 +144,7 @@ public class MaterialRaisedButton extends MaterialButton {
                     getWidth() - secondOffsetValue,
                     getHeight()- secondOffsetValue);
 
-            canvas.drawBitmap(makeCircle(), src, dst, null);
+            canvas.drawBitmap(makeCircle(gradientDrawable, baseButtonColor), src, dst, null);
             gradientDrawable.draw(mCanvasLayout);
         }
         invalidate();

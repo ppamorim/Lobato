@@ -14,51 +14,53 @@
   ~ limitations under the License.
   -->
 
-<ScrollView
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto">
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:background="#000000">
 
     <LinearLayout   android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFF">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="16dp"
-            android:text="Custom font_color, ripple_color and another params:"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:padding="16dp"-->
+            <!--android:text="Custom font_color, ripple_color and another params:"/>-->
 
-        <org.ppamorim.lobato.view.button.MaterialFlatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/abc_search_url_text_normal"
-            materialdesign:font="squaredance10"
-            materialdesign:text_color="#FF00"
-            materialdesign:ripple_color="#FF5"
-            android:padding="16dp"
-            android:layout_margin="16dp"
-            android:layout_gravity="center_horizontal"
-            android:text="background = transparent\n font color = #FF00"/>
+        <!--<org.ppamorim.lobato.view.button.MaterialFlatButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/abc_search_url_text_normal"-->
+            <!--materialdesign:font="squaredance10"-->
+            <!--materialdesign:text_color="#FF00"-->
+            <!--materialdesign:ripple_color="#FF5"-->
+            <!--android:padding="16dp"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="background = transparent\n font color = #FF00"/>-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="16dp"
-            android:text="no background_color param and font_color:"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:padding="16dp"-->
+            <!--android:text="no background_color param and font_color:"/>-->
 
-        <org.ppamorim.lobato.view.button.MaterialFlatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            materialdesign:font="squaredance10"
-            android:padding="16dp"
-            android:layout_margin="16dp"
-            android:layout_gravity="center_horizontal"
-            android:text="background = null\n font color = null"/>
+        <!--<org.ppamorim.lobato.view.button.MaterialFlatButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--materialdesign:font="squaredance10"-->
+            <!--android:padding="16dp"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="background = null\n font color = null"/>-->
 
         <TextView
             android:layout_width="match_parent"
@@ -71,29 +73,104 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF5252"
+            materialdesign:press_color="#C44040"
             materialdesign:font="squaredance10"
+            materialdesign:fade_speed = "0.01"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"
             android:text="background = #FFF"/>
 
-        <TextView
-            android:layout_width="match_parent"
+        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:background="#FF5252"
+            materialdesign:font="squaredance10"
+            materialdesign:fade_speed = "0.01"
             android:padding="16dp"
-            android:text="Custom font_color, ripple_color and another params:"/>
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="background = #FFF"/>
 
         <org.ppamorim.lobato.view.button.MaterialRaisedButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             materialdesign:font="squaredance10"
-            materialdesign:text_color="#FF00"
-            materialdesign:ripple_color="#FF82"
+            materialdesign:fade_speed = "0.01"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"
-            android:text="background = null"/>
+            android:text="background = #FFF"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:padding="16dp"-->
+            <!--android:text="Custom font_color, ripple_color and another params:"/>-->
+
+        <!--<org.ppamorim.lobato.view.button.MaterialRaisedButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--materialdesign:font="squaredance10"-->
+            <!--materialdesign:text_color="#FF00"-->
+            <!--materialdesign:ripple_color="#FF82"-->
+            <!--android:padding="16dp"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="background = null"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <org.ppamorim.lobato.view.progress.ProgressWheel
+                android:id="@+id/progress_wheel"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="16dp"
+                android:layout_gravity="center_horizontal"
+                materialdesign:fastSpinSpeed="2"
+                materialdesign:barColor="#5588FF"
+                materialdesign:progressIndeterminate="true" />
+
+            <org.ppamorim.lobato.view.progress.ProgressWheel
+                android:id="@+id/progress_wheel4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="16dp"
+                android:layout_gravity="center_horizontal"
+                materialdesign:barColor="#5588FF"
+                materialdesign:progressIndeterminate="true"
+                materialdesign:styleAnimation="noAnimation"/>
+
+            <org.ppamorim.lobato.view.progress.ProgressWheel
+                android:id="@+id/progress_wheel2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="16dp"
+                android:layout_gravity="center_horizontal"
+                materialdesign:barColor="#5588FF"
+                materialdesign:progressIndeterminate="true"
+                materialdesign:styleAnimation="sinAnimation"/>
+
+            <org.ppamorim.lobato.view.progress.ProgressWheel
+                android:id="@+id/progress_wheel3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="16dp"
+                android:layout_gravity="center_horizontal"
+                materialdesign:barColor="#5588FF"
+                materialdesign:progressIndeterminate="true"
+                materialdesign:styleAnimation="sqrtAnimation"/>
+
+
+
+
+        </LinearLayout>
+        
+
 
         <TextView
             android:layout_width="match_parent"
@@ -133,9 +210,9 @@
             <!--android:padding="16dp"-->
             <!--android:background="#FF5252"-->
             <!--materialdesign:max="100"-->
-            <!--materialdesign:min="1"-->
+            <!--materialdesign:min="0"-->
             <!--materialdesign:showNumberIndicator="true"/>-->
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

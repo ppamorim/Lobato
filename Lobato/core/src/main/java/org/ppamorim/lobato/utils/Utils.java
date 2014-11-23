@@ -64,6 +64,8 @@ public final class Utils {
                 myView.getLeft() + getRelativeLeft((View) myView.getParent());
     }
 
-
+    public static void log(String text) {
+        System.out.println("LOG: " + text);
+    }
 
 }

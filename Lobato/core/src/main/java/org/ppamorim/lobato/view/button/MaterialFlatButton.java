@@ -77,6 +77,7 @@ public class MaterialFlatButton extends MaterialButton {
         mTextColor = style.getColor(R.styleable.lobato_colors_text_color, accentButtonColor);
         rippleColor = style.getColor(R.styleable.lobato_colors_ripple_color, makePressColor());
         rippleSpeed = style.getInteger(R.styleable.lobato_colors_ripple_speed, (int) rippleSpeed);
+        fadeColorSpeed = style.getFloat(R.styleable.lobato_colors_fade_speed, fadeColorSpeed);
         rippleSize = style.getInteger(R.styleable.lobato_colors_ripple_size, rippleSize);
         mIsUppercase = style.getBoolean(R.styleable.lobato_colors_uppercase, false);
 
@@ -174,7 +175,7 @@ public class MaterialFlatButton extends MaterialButton {
                     getWidth(),
                     getHeight());
 
-            canvas.drawBitmap(makeCircle(), src, dst, null);
+            canvas.drawBitmap(makeCircle(gradientDrawable, baseButtonColor), src, dst, null);
             gradientDrawable.draw(mCanvasLayout);
         }
         invalidate();
