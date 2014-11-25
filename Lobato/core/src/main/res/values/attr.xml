@@ -5,16 +5,16 @@
     </declare-styleable>
 
     <declare-styleable name="lobato_colors">
-        <attr name="press_color" format="color"/>
-        <attr name="accent_color" format="color"/>
-        <attr name="stroke_color" format="color"/>
-        <attr name="background_color" format="color"/>
-        <attr name="unchecked_color" format="color"/>
-        <attr name="text_color" format="color"/>
-        <attr name="ripple_color" format="color"/>
-        <attr name="ripple_speed" format="integer"/>
-        <attr name="ripple_size" format="integer"/>
-        <attr name="fade_speed" format="float"/>
+        <attr name="pressColor" format="color"/>
+        <attr name="accentColor" format="color"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="uncheckedColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="rippleColor" format="color"/>
+        <attr name="rippleSpeed" format="integer"/>
+        <attr name="rippleSize" format="integer"/>
+        <attr name="fadeSpeed" format="float"/>
         <attr name="uppercase" format="boolean"/>
     </declare-styleable>
 
@@ -49,10 +49,7 @@
         <attr name="iconFloat" format="integer" />
         <!--        in float button indicate if must start with animation -->
         <attr name="animate" format="boolean" />
-        <!--        Speed of ripple animation -->
-        <attr name="rippleSpeed" format="float" />
-        <!--        in float button indicate if must start with animation -->
-        <attr name="rippleColor" format="color|reference" />
+
     </declare-styleable>
 
 </resources>

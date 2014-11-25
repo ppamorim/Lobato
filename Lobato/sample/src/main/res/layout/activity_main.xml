@@ -14,17 +14,16 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:background="#000000">
 
     <LinearLayout   android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFF">
 
         <!--<TextView-->
@@ -69,34 +68,36 @@
             android:padding="16dp"
             android:text="no background_color param and font_color:"/>
 
-        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+        <com.github.ppamorim.lobato.view.button.MaterialRaisedButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF5252"
-            materialdesign:press_color="#C44040"
+            materialdesign:pressColor="#C44040"
             materialdesign:font="squaredance10"
-            materialdesign:fade_speed = "0.01"
+            android:textColor="#FFF"
+            materialdesign:fadeSpeed = "0.01"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"
             android:text="background = #FFF"/>
 
-        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+        <com.github.ppamorim.lobato.view.button.MaterialRaisedButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF5252"
             materialdesign:font="squaredance10"
-            materialdesign:fade_speed = "0.01"
+            materialdesign:fadeSpeed = "0.01"
+            android:textColor="#C44040"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"
             android:text="background = #FFF"/>
 
-        <org.ppamorim.lobato.view.button.MaterialRaisedButton
+        <com.github.ppamorim.lobato.view.button.MaterialRaisedButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             materialdesign:font="squaredance10"
-            materialdesign:fade_speed = "0.01"
+            materialdesign:fadeSpeed = "0.01"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"
@@ -109,7 +110,7 @@
             <!--android:padding="16dp"-->
             <!--android:text="Custom font_color, ripple_color and another params:"/>-->
 
-        <!--<org.ppamorim.lobato.view.button.MaterialRaisedButton-->
+        <!--<com.github.ppamorim.lobato.view.button.MaterialRaisedButton-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--materialdesign:font="squaredance10"-->
@@ -125,7 +126,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <org.ppamorim.lobato.view.progress.ProgressWheel
+            <com.github.ppamorim.lobato.view.progress.ProgressWheel
                 android:id="@+id/progress_wheel"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -135,7 +136,7 @@
                 materialdesign:barColor="#5588FF"
                 materialdesign:progressIndeterminate="true" />
 
-            <org.ppamorim.lobato.view.progress.ProgressWheel
+            <com.github.ppamorim.lobato.view.progress.ProgressWheel
                 android:id="@+id/progress_wheel4"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -145,7 +146,7 @@
                 materialdesign:progressIndeterminate="true"
                 materialdesign:styleAnimation="noAnimation"/>
 
-            <org.ppamorim.lobato.view.progress.ProgressWheel
+            <com.github.ppamorim.lobato.view.progress.ProgressWheel
                 android:id="@+id/progress_wheel2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -155,7 +156,7 @@
                 materialdesign:progressIndeterminate="true"
                 materialdesign:styleAnimation="sinAnimation"/>
 
-            <org.ppamorim.lobato.view.progress.ProgressWheel
+            <com.github.ppamorim.lobato.view.progress.ProgressWheel
                 android:id="@+id/progress_wheel3"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -183,15 +184,15 @@
             android:layout_width="fill_parent"
             android:layout_height="72dp" >
 
-            <org.ppamorim.lobato.view.button.MaterialCheckbox
+            <com.github.ppamorim.lobato.view.button.MaterialCheckbox
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                materialdesign:accent_color="#009688"
-                materialdesign:stroke_color="#656565"
-                materialdesign:background_color="#FFF"
-                materialdesign:unchecked_color="#A4A4A4"
+                materialdesign:accentColor="#009688"
+                materialdesign:strokeColor="#656565"
+                materialdesign:backgroundColor="#FFF"
+                materialdesign:uncheckedColor="#A4A4A4"
                 materialdesign:check="true" />
 
         </RelativeLayout>
@@ -203,7 +204,7 @@
             android:padding="16dp"
             android:text="Hover to discover"/>
 
-        <!--<org.ppamorim.lobato.view.sliders.MaterialSlider-->
+        <!--<com.github.ppamorim.lobato.view.sliders.MaterialSlider-->
             <!--android:id="@+id/slider"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
@@ -215,4 +216,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
