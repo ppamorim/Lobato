@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="font">
+        <attr name="font" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="lobato_colors">
+        <attr name="pressColor" format="color"/>
+        <attr name="accentColor" format="color"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="uncheckedColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="rippleColor" format="color"/>
+        <attr name="rippleSpeed" format="integer"/>
+        <attr name="rippleSize" format="integer"/>
+        <attr name="fadeSpeed" format="float"/>
+        <attr name="uppercase" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="progressIndeterminate" format="boolean"/>
+        <attr name="barColor" format="color"/>
+        <attr name="rimColor" format="color"/>
+        <attr name="rimWidth" format="dimension"/>
+        <attr name="spinSpeed" format="float"/>
+        <attr name="fastSpinSpeed" format="float"/>
+        <attr name="barSpinCycleTime" format="integer"/>
+        <attr name="circleRadius" format="dimension"/>
+        <attr name="fillRadius" format="boolean"/>
+        <attr name="barWidth" format="dimension"/>
+        <attr name="styleAnimation" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomAttributes">
+        <!--        indicate if the slider must show number indicator -->
+        <attr name="showNumberIndicator" format="boolean" />
+        <!--        in progress view indicate max value of progress -->
+        <attr name="max" format="integer" />
+        <!--        in progress view indicate min value of progress -->
+        <attr name="min" format="integer" />
+        <!--        in progress view indicate value of progress -->
+        <attr name="value" format="integer" />
+        <!--        in progress view indicate value of progress -->
+        <attr name="progress" format="integer" />
+        <!--        in switche's view indicate state of view -->
+        <attr name="check" format="boolean" />
+        <!--        in float button indicate icon resource -->
+        <attr name="iconFloat" format="integer" />
+        <!--        in float button indicate if must start with animation -->
+        <attr name="animate" format="boolean" />
+
+    </declare-styleable>
+
+</resources>
